@@ -47,7 +47,7 @@ module.exports = class {
     const server = args[1].replace(/['"`]/g, "");
     const channel = args[2].replace(/['"`]/g, "");
     try {
-      const serverChannel = findChannel(server, channel);
+      const serverChannel = this.findChannel(server, channel);
       if (!serverChannel) {
         throw new Error(
           `I have no knowledge/access to channel ${server}:${channel}`
