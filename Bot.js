@@ -13,7 +13,7 @@ module.exports = class {
       this.discordClient.user.setStatus("invisible");
     });
 
-    this.discordClient.on("message", async (message) => {
+    this.discordClient.on("message", (message) => {
       if (message.channel.type !== "dm") return;
       if (message.author.id !== process.env.DISCORD_USER_ID) return;
 
