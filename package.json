@@ -1,0 +1,17 @@
+{
+  "name": "botpipes",
+  "version": "1.0.0",
+  "description": "Not the worst bagpipe player in the world... but close to it",
+  "main": "index.js",
+  "author": "Jimmy Pruitt",
+  "license": "MIT",
+  "private": false,
+  "dependencies": {
+    "@discordjs/opus": "^0.3.2",
+    "discord.js": "^12.2.0",
+    "dotenv": "^8.2.0",
+    "ffmpeg-static": "^4.2.6",
+    "split-string": "^6.1.0",
+    "ytdl-core": "^3.1.2"
+  }
+}
