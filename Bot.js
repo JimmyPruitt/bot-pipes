@@ -5,6 +5,7 @@ module.exports = class {
   constructor(discordClient) {
     this.discordClient = discordClient;
     this.musicStreams = [];
+    this.connectedChannel = null;
   }
 
   initialize() {
@@ -21,6 +22,8 @@ module.exports = class {
         switch (true) {
           case !!message.content.match(/^\/join(\s|$)/):
             return this.joinChannel(message);
+          case !!message.content.match(/\/leave$/):
+            return this.leaveChannel();
           case !!message.content.match(/\/start$/):
             return this.startMusic();
           case !!message.content.match(/\/stop$/):
@@ -47,19 +50,27 @@ module.exports = class {
     const server = args[1].replace(/['"`]/g, "");
     const channel = args[2].replace(/['"`]/g, "");
     try {
-      const serverChannel = this.findChannel(server, channel);
-      if (!serverChannel) {
+      this.connectedChannel = this.findChannel(server, channel);
+      if (!this.connectedChannel) {
         throw new Error(
           `I have no knowledge/access to channel ${server}:${channel}`
         );
-      } else if (!serverChannel.joinable) {
+      } else if (!this.connectedChannel.joinable) {
         throw new Error(`Channel ${server}:${channel} is not joinable`);
       }
 
-      await serverChannel.join();
+      await this.connectedChannel.join();
     } catch (e) {
       message.reply(e.message);
     }
+  }
+
+  leaveChannel() {
+    if (!this.connectedChannel) {
+      return;
+    }
+
+    await this.connectedChannel.leave();
   }
 
   startMusic() {
