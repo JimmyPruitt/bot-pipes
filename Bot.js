@@ -59,13 +59,14 @@ module.exports = class {
         throw new Error(`Channel ${server}:${channel} is not joinable`);
       }
 
+      await this.leaveChannel();
       await this.connectedChannel.join();
     } catch (e) {
       message.reply(e.message);
     }
   }
 
-  leaveChannel() {
+  async leaveChannel() {
     if (!this.connectedChannel) {
       return;
     }
